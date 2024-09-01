@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Flask</title>
+    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+    <style>
+      .grow-wrap {
+        display: grid;
+      }
+      .grow-wrap::after {
+        content: attr(data-replicated-value) " ";
+        white-space: pre-wrap;
+        visibility: hidden;
+      }
+      .grow-wrap > textarea {
+        resize: none;
+        overflow: hidden;
+      }
+      .grow-wrap > textarea,
+      .grow-wrap::after {
+        border: 1px solid black;
+        padding: 0.5rem;
+        font: inherit;
+
+        grid-area: 1 / 1 / 2 / 2;
+      }
+    </style>
 </head>
-<body>
-    <h1>Hello, Flask!</h1>
-    <p>This is a simple Flask application.</p>
+<body class="font-sans m-0 bg-slate-700 text-slate-100">
+    <nav class="bg-blue-950 p-5">
+      <h1 class="color-blue-400 m-0">LogLink</h1>
+    </nav>
+    <main class="p-4">
+      <p>Hallo!</p>
+      <form action="/input" method="POST" class="flex flex-col h-100 m-3 gap-3 ">
+        <div class="grow-wrap">
+          <textarea name="log" class="bg-slate-500 border-0 rounded-lg text-slate-100 p-2" onInput="this.parentNode.dataset.replicatedValue = this.value">{{log}}</textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </main>
 </body>
 </html>

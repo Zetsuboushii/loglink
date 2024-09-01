@@ -1,6 +1,15 @@
-from flask import *
+from flask import redirect, render_template, Flask, request
+from werkzeug import Response
 app = Flask(__name__)
 
+log:str = ""
+
 @app.route('/')
-def index():
-    return render_template('index.html')
+def index() -> str:
+    return render_template('index.html',log=log)
+
+@app.route("/input",methods=["POST"])
+def input() -> Response:
+    global log
+    log = request.form["log"]
+    return redirect("/")
